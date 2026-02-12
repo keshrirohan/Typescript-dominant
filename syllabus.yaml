@@ -1,0 +1,147 @@
+commands:
+  - name: Install TypeScript Globally (with sudo)
+    command: "sudo npm i typescript -g"
+    description: "Installs TypeScript globally on your machine, allowing you to use the 'tsc' command from any directory to compile TypeScript files."
+
+  - name: Install TypeScript Globally (without sudo)
+    command: "tsc abc.tsx"
+    description: "Compiles the TypeScript file named 'abc.tsx' into JavaScript. The output will typically be a file named 'abc.js' in the same directory, which can be executed in a JavaScript environment."
+
+  - name: Compile TypeScript Project
+    command: "tsc"
+    description: "Compiles the entire TypeScript project based on the settings in 'tsconfig.json', producing JavaScript output for all included TypeScript files."
+  - name: Compile TypeScript File
+    command: "tsc abc.tsx"
+    description: "Compiles the TypeScript file named 'abc.tsx' into JavaScript. The output will typically be a file named 'abc.js' in the same directory, which can be executed in a JavaScript environment."
+
+install_extension:
+    command: "tsc"
+  description: "Installs the official TypeScript extension for Visual Studio Code, providing enhanced IDE support including IntelliSense, debugging, and type checking directly in the editor."
+  - name: Initialize TypeScript Project
+    command: "tsc --init"
+    description: "Creates a 'tsconfig.json' file in the current directory, which is used to configure the TypeScript compiler options for your project. This file allows you to specify various settings such as target JavaScript version, module system, and include/exclude patterns for TypeScript files."
+  - name: Watch Mode Compilation
+    command: "tsc --watch"
+    description: "Enables watch mode, where the TypeScript compiler will automatically recompile files when changes are detected. This is useful for continuous development without manually running the compiler each time."
+
+
+primitives_and_references:
+  primitives:
+    description: "Primitives are copied by value"
+    example: |
+      let a = 10;
+      let b = a;
+      console.log(a);   //10  
+      console.log(b+2); // 12
+    Types:
+      - number  eg: 10, 3.14
+      - string eg: "Hello" or 'World' 
+      - boolean eg: true, false
+      - null eg: null
+      - undefined eg: undefined
+      - symbol eg: Symbol('unique')
+    
+    trick: "Reference types include values created with (), {}, or []"
+
+  references:
+    description: "Objects are copied by reference"
+    example: |
+      let a = [1, 2, 3, 4, 5];
+      let b = a;
+      b.pop();
+      console.log(a); // [1, 2, 3, 4]
+      console.log(b); // [1, 2, 3, 4]
+    trick: "Anywhere have () {} []"
+
+  Array:
+    example: |
+      let arr1 = [1, 2, 3,"rohan"]; // arr1 and arr2 is a container of type number and string
+      let arr2 = arr1;
+      arr2.push(4);
+      console.log(arr1); // [1, 2, 3, "rohan", 4]
+      console.log(arr2); // [1, 2, 3, "rohan", 4]
+  Tuples:
+    example: |
+      let tuple1: [number, string] = [1, "rohan"]; // tuple1 and tuple2 is a container of type number and string
+      let tuple2 = tuple1;
+      tuple2.push(4);
+      console.log(tuple1); // [1, "rohan", 4]
+      console.log(tuple2); // [1, "rohan", 4]
+  Enum:
+    example: |
+      enum Color {Red="laal", Green="hara", Blue="neela"}; // enum Color is a container of type string
+      enum statusCodes {Success= 200, NotFound= "not found 404", ServerError= 500}; // enum statusCodes is a container of type number
+      let color1 = Color.Red; // color1 and color2 is a container of type string
+      let color2 = color1;
+      console.log(color1); // "laal"
+      console.log(statusCodes.NotFound); // not found 404
+      console.log(color2); // "laal"
+      
+  Any:
+    example: |
+      let anyVar: any = 10; // anyVar is a container of type any
+      anyVar = "rohan"; // anyVar can hold any type of value
+      console.log(anyVar); // "rohan"
+  
+  Unknown:
+    example: |
+      let unknownVar: unknown = 10; // unknownVar is a container of type unknown
+      unknownVar = "rohan"; // unknownVar can hold any type of value but we need to check the type before using it
+      if (typeof unknownVar === "string") {
+        console.log(unknownVar.toUpperCase()); // "ROHAN"
+      }
+  Void:
+    example: |
+      function logMessage(): void { // logMessage is a function that returns void
+        console.log("Hello, World!"); // "Hello, World!"
+      }
+      logMessage(); // "Hello, World!"
+  null:
+    example: |
+      let nullVar: null; // nullVar is a container of type null
+      console.log(nullVar); // null
+  undefined:
+    example: |
+      let undefinedVar: undefined; // undefinedVar is a container of type undefined
+      console.log(undefinedVar); // undefined
+  never:
+    example: |
+      function throwError(message: string): never { // throwError is a function that returns never
+        throw new Error(message); // throws an error with the provided message
+      }
+      throwError("This is an error!"); // This will throw an error with the message "This is an error!"
+  
+
+  Type Inference:
+   description: "TypeScript can automatically infer the type of a variable based on its initial value."
+   example: |
+     let inferredNumber: number | string = 42; // TypeScript infers that inferredNumber is of type number
+     inferredNumber = "forty-two"; // TypeScript allows inferredNumber to be a string because of the union type
+     let inferredString: string = "Hello, TypeScript!"; // TypeScript infers that inferredString is of type string
+     console.log(inferredNumber); // "forty-two"
+     console.log(inferredString); // "Hello, TypeScript!"
+  
+  Type Annotation:
+   description: "Type annotations allow you to explicitly specify the type of a variable, function parameter, or return value."
+   example: |
+     let annotatedNumber: number = 42; // annotatedNumber is explicitly declared as a number
+     let annotatedString: string = "Hello, TypeScript!"; // annotatedString is explicitly declared as a string
+     function add(x: number, y: number): number { // add is a function that takes two numbers and returns a number
+       return x + y; // returns the sum of x and y
+     }
+     console.log(annotatedNumber); // 42
+     console.log(annotatedString); // "Hello, TypeScript!"
+     console.log(add(10, 20)); // 30
+
+
+  Interface:
+   description: "Interfaces define the structure of an object, specifying the properties and their types that an object must have."
+   example: |
+     interface Person { // Defines an interface named Person
+       name: string; // name property of type string
+       age: number; // age property of type number
+       gender?: string; // Optional gender property of type string
+     }
+     let person1: Person = { name: "Alice", age: 30 }; // person1 is an object that adheres to the Person interface
+     console.log(person1.name); // "Alice"
+     console.log(person1.age); // 30
