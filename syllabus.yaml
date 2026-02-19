@@ -145,3 +145,187 @@ primitives_and_references:
      let person1: Person = { name: "Alice", age: 30 }; // person1 is an object that adheres to the Person interface
      console.log(person1.name); // "Alice"
      console.log(person1.age); // 30
+
+
+  Interface with Extend :
+    description: "Interfaces can extend other interfaces, allowing you to create a new interface that inherits the properties of the existing one."
+    example: |
+      interface Employee extends Person { // Employee interface extends Person interface
+        employeeId: number; // employeeId property of type number
+      }
+      let employee1: Employee = { name: "Bob", age: 25, employeeId: 12345 }; // employee1 is an object that adheres to the Employee interface
+      console.log(employee1.name); // "Bob"
+      console.log(employee1.age); // 25
+      console.log(employee1.employeeId); // 12345
+
+
+
+  Interface with samename:
+    description: "If two interfaces have the same name, TypeScript will merge them together, combining their properties."
+    example: |
+      interface User { // First declaration of User interface
+        name: string; // name property of type string
+      }
+      interface User { // Second declaration of User interface with the same name
+        age: number; // age property of type number
+      }
+      let user1: User = { name: "Charlie", age: 28 }; // user1 is an object that adheres to the merged User interface
+      console.log(user1.name); // "Charlie"
+      console.log(user1.age); // 28
+
+  Type Alias:
+    description: "Type aliases allow you to create a new name for a type, which can be a primitive, union, intersection, tuple, or any other type."
+    example: |
+      type StringOrNumber = string | number; // Defines a type alias for a union of string and number
+      let value1: StringOrNumber = "Hello"; // value1 can be a string
+      let value2: StringOrNumber = 42; // value2 can be a number
+      console.log(value1); // "Hello"
+      console.log(value2); // 42
+
+  Intersection Types:
+    description: "Intersection types allow you to combine multiple types into one, meaning that the resulting type will have all the properties of the combined types."
+    example: |
+      interface A { // Defines interface A
+        a: number; // a property of type number
+      }
+      interface B { // Defines interface B
+        b: string; // b property of type string
+      }
+      type AB = A & B; // Defines an intersection type AB that combines A and B
+      let ab1: AB = { a: 10, b: "Hello" }; // ab1 is an object that adheres to the AB type
+      console.log(ab1.a); // 10
+      console.log(ab1.b); // "Hello"
+
+
+  Class:
+    description: "Classes are blueprints for creating objects, encapsulating data and behavior. They can have properties, methods, and constructors."
+    example: |
+      class Person { // Defines a class named Person
+        name: string; // name property of type string
+        age: number; // age property of type number
+        constructor(name: string, age: number) { // Constructor to initialize the properties
+          this.name = name; // Assigns the name parameter to the name property
+          this.age = age; // Assigns the age parameter to the age property
+        }
+        greet() { // Method to greet the person
+          console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`); // Logs a greeting message
+        }
+      }
+      let person1 = new Person("Dave", 35); // Creates an instance of the Person class
+      person1.greet(); // Calls the greet method, output: "Hello, my name is Dave and I am 35 years old."
+
+  object:
+    description: "Objects are collections of key-value pairs, where the keys are strings and the values can be of any type."
+    example: |
+      let person = { // Defines an object named person
+        name: "Eve", // name property with value "Eve"
+        age: 28, // age property with value 28
+        greet() { // Method to greet the person
+          console.log(`Hi, I'm ${this.name} and I'm ${this.age} years old.`); // Logs a greeting message
+        }
+      };
+      console.log(person.name); // Accesses the name property, output: "Eve"
+      console.log(person.age); // Accesses the age property, output: 28
+      person.greet(); // Calls the greet method, output: "Hi, I'm Eve and I'm 28 years old."
+
+
+  class 4 piller:
+    1. Encapsulation: "Encapsulation is the bundling of data and methods that operate on that data within a single unit, such as a class. It restricts direct access to some of the object's components, which can prevent the accidental modification of data."
+        example: |
+          class BankAccount { // Defines a class named BankAccount
+            private balance: number; // Private property to store the balance
+            constructor(initialBalance: number) { // Constructor to initialize the balance
+              this.balance = initialBalance; // Assigns the initial balance to the balance property
+            }
+            deposit(amount: number) { // Method to deposit money into the account
+              if (amount > 0) { // Checks if the deposit amount is positive
+                this.balance += amount; // Adds the amount to the balance
+                console.log(`Deposited ${amount}. New balance is ${this.balance}.`); // Logs the new balance
+              } else {
+                console.log("Deposit amount must be positive."); // Logs an error message for invalid deposit
+              }
+            }
+            withdraw(amount: number) { // Method to withdraw money from the account
+              if (amount > 0 && amount <= this.balance) { // Checks if the withdrawal amount is valid
+                this.balance -= amount; // Subtracts the amount from the balance
+                console.log(`Withdrew ${amount}. New balance is ${this.balance}.`); // Logs the new balance
+              } else {
+                console.log("Invalid withdrawal amount."); // Logs an error message for invalid withdrawal
+              }
+            }
+          }
+    2. Inheritance: "Inheritance is a fundamental object-oriented programming concept where a new class (called a child or subclass) is created based on an existing class (called a parent or superclass). The child class inherits properties and behaviors (methods) from the parent class, allowing for code reuse and the creation of a hierarchical relationship between classes."
+      Example: |
+        class Animal { // Defines a base class named Animal
+          name: string; // name property of type string
+          constructor(name: string) { // Constructor to initialize the name
+            this.name = name; // Assigns the name parameter to the name property
+          }
+          makeSound() { // Method to make a sound
+            console.log(`${this.name} makes a sound.`); // Logs a message indicating the animal makes a sound
+          }
+        }
+        class Dog extends Animal { // Defines a Dog class that inherits from the Animal class
+          constructor(name: string) { // Constructor to initialize the name
+            super(name); // Calls the constructor of the parent class (Animal)
+          }
+          makeSound() { // Overrides the makeSound method
+            console.log(`${this.name} barks.`); // Logs a message indicating the dog barks
+          }
+        }
+        let dog1 = new Dog("Buddy"); // Creates an instance of the Dog class
+        dog1.makeSound(); // Calls the makeSound method, output: "Buddy barks."
+
+
+    3. Polymorphism: "Polymorphism is the ability of different classes to be treated as instances of the same class through a common interface. It allows for methods to be used on objects of different types, and the correct method implementation will be called based on the actual type of the object at runtime."
+      example: |
+        class Shape { // Defines a base class named Shape
+          area(): number { // Method to calculate the area, returns a number
+            return 0; // Default implementation returns 0
+          }
+        }
+        class Circle extends Shape { // Defines a Circle class that inherits from Shape
+          radius: number; // radius property of type number
+          constructor(radius: number) { // Constructor to initialize the radius
+            super(); // Calls the constructor of the parent class (Shape)
+            this.radius = radius; // Assigns the radius parameter to the radius property
+          }
+          area(): number { // Overrides the area method to calculate the area of a circle
+            return Math.PI * this.radius * this.radius; // Returns the area of the circle
+          }
+        }
+        class Rectangle extends Shape { // Defines a Rectangle class that inherits from Shape
+          width: number; // width property of type number
+          height: number; // height property of type number
+          constructor(width: number, height: number) { // Constructor to initialize the width and height
+            super(); // Calls the constructor of the parent class (Shape)
+            this.width = width; // Assigns the width parameter to the width property
+            this.height = height; // Assigns the height parameter to the height property
+          }
+          area(): number { // Overrides the area method to calculate the area of a rectangle
+            return this.width * this.height; // Returns the area of the rectangle
+          }
+        }
+        let shapes: Shape[] = [new Circle(5), new Rectangle(4, 6)]; // Creates an array of Shape objects, containing a Circle and a Rectangle
+        shapes.forEach(shape => { // Iterates over each shape in the array
+          console.log(`Area: ${shape.area()}`); // Calls the area method for each shape, output will depend on the actual type of the shape
+        });
+
+    4. Abstraction: "Abstraction is the concept of hiding the complex implementation details of a system and exposing only the necessary and relevant parts to the user. It allows developers to focus on what an object does rather than how it does it, making it easier to manage complexity and improve code maintainability." 
+      example: |
+        abstract class Vehicle { // Defines an abstract class named Vehicle
+          abstract startEngine(): void; // Abstract method to start the engine, must be implemented by subclasses
+          abstract stopEngine(): void; // Abstract method to stop the engine, must be implemented by subclasses
+        }
+        class Car extends Vehicle { // Defines a Car class that extends the Vehicle class
+          startEngine(): void { // Implements the startEngine method for Car
+            console.log("Car engine started."); // Logs a message indicating the car engine has started
+          }
+          stopEngine(): void { // Implements the stopEngine method for Car
+            console.log("Car engine stopped."); // Logs a message indicating the car engine has stopped
+          }
+        }
+        let myCar = new Car(); // Creates an instance of the Car class
+        myCar.startEngine(); // Calls the startEngine method, output: "Car engine started."
+        myCar.stopEngine(); // Calls the stopEngine method, output: "Car engine stopped." 
+           
